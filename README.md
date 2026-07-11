@@ -1,4 +1,57 @@
-# BoardgameListingWebApp
+## To use Jenkins for scanning files and testing the code, we need to setup the servers and cofigure them.
+
+FOllow the steps to configuration.
+1. Set-up Cloud infra on AWS
+   - vpc
+   - security Group
+   - EC2
+2. setup Master Node
+3. setup 2 worker Nodes
+4. setup Sonarqube server
+5. setup Nexus server
+6. setup Jenkins server
+7. setup Monitoring server - Grafana & Prometheus
+
+## Steps to setup Master Node and Worker Nodes
+
+- Log in to the server using ssh and pem key
+Install docker + kubernetes: Follow the steps given in below file: https://tristiks.com/docs/Kubernetes/kubernetes-installation-and-setup/
+
+## steps to setup Sonarqube server
+
+- Log into the server
+Install docker using official documentation: https://docs.docker.com/engine/install/ubuntu/
+change the permission to access the docker
+chmod 666 /var/run/docker.socks
+- Run the offical sonarqube image on docker
+docker run -d --name sonar -p 9000:9000 sonarqube:lts-community
+
+## steps to setup Nexus server
+
+- Log into the server
+Install docker using official documentation: https://docs.docker.com/engine/install/ubuntu/
+change the permission to access the docker
+chmod 666 /var/run/docker.socks
+- Run the offical Nexus image on docker
+docker run -d --name Nexus -p 8081:8081 sonatype/nexus3:latest
+
+## steps to setup Jenkins server
+
+- Log into the server
+Install docker using official documentation: https://docs.docker.com/engine/install/ubuntu/
+change the permission to access the docker
+chmod 666 /var/run/docker.socks
+Install the Jenkins using official documentation: https://www.jenkins.io/doc/book/installing/linux/#debianubuntu
+- Run the application on http://<JenkinsServerIp>:8080
+- Install the plugins
+- maven integration, openjdk plugin, docker build step, kubernetes credential, kubernetes cli, sonarqube scanner install it
+- Install trivy using official documentation: https://trivy.dev/docs/v0.51/getting-started/installation/
+
+## steps to setup Grafana and prometheus
+
+wget Grafana and Prometheus using official documentation, run prometheus and grafana executable files.
+Import the prometheus datasource to grafana.
+Export the node_exporter and blackbox_exporter using the official prometheus repository.
 
 ## Description 
 
@@ -50,56 +103,3 @@ This web application displays lists of board games and their reviews. While anyo
   - username: daffy   |     password: duck  (manager role)
 3. You can also sign-up as a new user and customize your role to play with the application! 😊
 
-## How to setup Jenkins for: scanning files and testing the code
-
-1. Set-up Cloud infra on AWS
-   - vpc
-   - security Group
-   - EC2
-2. setup Master Node
-3. setup 2 worker Nodes
-4. setup Sonarqube server
-5. setup Nexus server
-6. setup Jenkins server
-7. setup Monitoring server - Grafana & Prometheus
-
-## Steps to setup Master Node and Worker Nodes
-
-- Log in to the server using ssh and pem key
-Install docker + kubernetes: Follow the steps given in below file :https://tristiks.com/docs/Kubernetes/kubernetes-installation-and-setup/
-
-## steps to setup Sonarqube server
-
-- Log into the server
-Install docker using official documentation: https://docs.docker.com/engine/install/ubuntu/
-change the permission to access the docker
-chmod 666 /var/run/docker.socks
-- Run the offical sonarqube image on docker
-docker run -d --name sonar -p 9000:9000 sonarqube:lts-community
-
-## steps to setup Nexus server
-
-- Log into the server
-Install docker using official documentation: https://docs.docker.com/engine/install/ubuntu/
-change the permission to access the docker
-chmod 666 /var/run/docker.socks
-- Run the offical Nexus image on docker
-docker run -d --name Nexus -p 8081:8081 sonatype/nexus3:latest
-
-## steps to setup Jenkins server
-
-- Log into the server
-Install docker using official documentation: https://docs.docker.com/engine/install/ubuntu/
-change the permission to access the docker
-chmod 666 /var/run/docker.socks
-Install the Jenkins using official documentation: https://www.jenkins.io/doc/book/installing/linux/#debianubuntu
-- Run the application on http://<JenkinsServerIp>:8080
-- Install the plugins
-- maven integration, openjdk plugin, docker build step, kubernetes credential, kubernetes cli, sonarqube scanner install it
-- Install trivy using official documentation: https://trivy.dev/docs/v0.51/getting-started/installation/
-
-## steps to setup Grafana and prometheus
-
-wget Grafana and Prometheus using official documentation, run prometheus and grafana executable files.
-Import the prometheus datasource to grafana.
-Export the node_exporter and blackbox_exporter using the official prometheus repository.
