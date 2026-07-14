@@ -1,26 +1,27 @@
-sudo apt update
-sudo apt upgrade -y
-sudo apt install fontconfig openjdk-21-jre
+#!/bin/bash
+apt update
+apt upgrade -y
+apt install fontconfig openjdk-21-jre
 java -version
 
-sudo wget -O /etc/apt/keyrings/jenkins-keyring.asc \
+wget -O /etc/apt/keyrings/jenkins-keyring.asc \
   https://pkg.jenkins.io/debian-stable/jenkins.io-2026.key
 echo "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.asc]" \
   https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
   /etc/apt/sources.list.d/jenkins.list > /dev/null
-sudo apt update
-sudo apt install jenkins -y
+apt update
+apt install jenkins -y
 
-sudo systemctl enable jenkins
+systemctl enable jenkins
 
 #install docker
 
-sudo apt install -y apt-transport-https ca-certificates curl software-properties-common
+apt install -y apt-transport-https ca-certificates curl software-properties-common
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-sudo apt update
-sudo apt install -y docker-ce
-sudo chmod 666 /var/run/docker.sock
+add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+apt update
+apt install -y docker-ce
+chmod 666 /var/run/docker.sock
 
-sudo systemctl enable docker
-sudo systemctl start docker
+systemctl enable docker
+systemctl start docker
